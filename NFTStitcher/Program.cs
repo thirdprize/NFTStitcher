@@ -18,35 +18,42 @@ namespace MyApp // Note: actual namespace depends on the project name.
             var layerNamesOption = new Option<string>
                 ("--layers", "A comma seperated list of \"layer names\".");
 
+            var fileNamesOption = new Option<string>
+                ("--fileName", "A prefix for the output file name.");
+
             var rootCommand = new RootCommand("File compositer");
             rootCommand.Add(inputFolderOption);
             rootCommand.Add(outputFolderption);
             rootCommand.Add(layerNamesOption);
+            rootCommand.Add(fileNamesOption);
 
             //add the actual main routine
             rootCommand.SetHandler(
-                (inputFileOptionValue, outputFileOptionValue, layersOptionValue) =>
+                (inputFileValue, outputFileValue, layersValue, fileNamesValue) =>
                 {
-                    ActualMain(inputFileOptionValue, outputFileOptionValue, layersOptionValue);
+                    ActualMain(inputFileValue, outputFileValue, layersValue, fileNamesValue);
                 },
-                inputFolderOption, outputFolderption, layerNamesOption);
+                inputFolderOption, outputFolderption, layerNamesOption, fileNamesOption);
 
             //pasrse them
             return await rootCommand.InvokeAsync(args);
         }
 
-        static void ActualMain(string inputFileOptionValue, string outputFileOptionValue, string layersOptionValue)
+        static void ActualMain(string inputFileValue, string outputFileValue, string layersValue, string fileNameValue)
         {
             //print inputs
-            Console.WriteLine(inputFileOptionValue);
-            Console.WriteLine(outputFileOptionValue);
-            Console.WriteLine(layersOptionValue);
-            var layerPrefixes = layersOptionValue.Split(",");
+            Console.WriteLine(inputFileValue);
+            Console.WriteLine(outputFileValue);
+            Console.WriteLine(layersValue);
+            Console.WriteLine(fileNameValue);
+
+            var layerPrefixes = layersValue.Split(",");
             int index = 0;
             int nftCount = 0;
+            string fileNamePrefix = (string.IsNullOrEmpty(fileNameValue) ? "NFT " :$"{fileNameValue} ");
 
             //get all the individul layers
-            var allFiles = Directory.GetFiles($"{inputFileOptionValue}");
+            var allFiles = Directory.GetFiles($"{inputFileValue}");
             Console.WriteLine($"individual layers = {allFiles.Count()}");
 
             //group them into chunks
@@ -63,7 +70,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
             foreach (var baseFile in fileChunks[0])
             {
                 //zap any existing files
-                var subdir = Path.Combine(outputFileOptionValue, $"{index}");
+                var subdir = Path.Combine(outputFileValue, $"{index}");
                 Directory.CreateDirectory(subdir);
                 DirectoryInfo di = new DirectoryInfo(subdir);
                 foreach (FileInfo file in di.EnumerateFiles())
@@ -103,7 +110,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                                                 CompositeLayer(fileChunks[5][e], baseImage);
                                                 CompositeLayer(fileChunks[6][f], baseImage);
                                                 CompositeLayer(fileChunks[7][g], baseImage);
-                                                baseImage.Save(Path.Combine(outputFileOptionValue, $"{index}", $"ted #{nftCount++}.png"), ImageFormat.Png);
+                                                baseImage.Save(Path.Combine(outputFileValue, $"{index}", $"ted #{nftCount++}.png"), ImageFormat.Png);
 
                                             }
 

@@ -2,7 +2,7 @@
   "profiles": {
     "NFTStitcher": {
       "commandName": "Project",
-      "commandLineArgs": "--inputFile:\"C:\\Users\\user\\Documents\\Art\\Crypto\\Ted\\WOT - Layers\" --outputFile:\"C:\\Users\\user\\Documents\\Art\\Crypto\\Ted\\WOT - Layers\\output\" --layers:body,eyes,mouth,nose,hair,accessory,hat,glasses"
+      "commandLineArgs": "--inputFile:\"C:\\Users\\user\\Documents\\Art\\Crypto\\Ted\\WOT - Layers\" --outputFile:\"C:\\Users\\user\\Documents\\Art\\Crypto\\Ted\\WOT - Layers\\output\" --layers:body,eyes,mouth,nose,hair,accessory,hat,glasses --fileName:Ted"
     }
   }
 }
