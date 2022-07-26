@@ -10,6 +10,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
     {
         static async Task<int> Main(string[] args)
         {
+            //sort out the command line parameters
             var inputFolderOption = new Option<string>
                 ("--inputFile", "The folder with the source image files in.");
             var outputFolderption = new Option<string>
@@ -22,6 +23,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
             rootCommand.Add(outputFolderption);
             rootCommand.Add(layerNamesOption);
 
+            //add the actual main routine
             rootCommand.SetHandler(
                 (inputFileOptionValue, outputFileOptionValue, layersOptionValue) =>
                 {
@@ -29,6 +31,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 },
                 inputFolderOption, outputFolderption, layerNamesOption);
 
+            //pasrse them
             return await rootCommand.InvokeAsync(args);
         }
 
@@ -50,14 +53,16 @@ namespace MyApp // Note: actual namespace depends on the project name.
             List<string[]> fileChunks = new List<string[]>();
             foreach (var layerName in layerPrefixes)
             {
+                //based on the start of the file name
                 var files = allFiles.Where(s => new FileInfo(s).Name.StartsWith(layerName));
                 fileChunks.Add(files.ToArray());
                 Console.WriteLine($"{layerName} - {files.Count()} files");
             }
 
-
+            //start by looping through the backgrounds
             foreach (var baseFile in fileChunks[0])
             {
+                //zap any existing files
                 var subdir = Path.Combine(outputFileOptionValue, $"{index}");
                 Directory.CreateDirectory(subdir);
                 DirectoryInfo di = new DirectoryInfo(subdir);
@@ -66,6 +71,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     file.Delete();
                 }
 
+                //then go through all the layer combinations
                 Console.WriteLine(baseFile);
 
                 for (int a = 0; a < fileChunks[1].Length; a++)
