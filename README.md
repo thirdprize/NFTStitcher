@@ -17,4 +17,7 @@ where
 
 In the output folder there is a subfolder for each of the different base layers.  In the above example each "body" would have its own folder.  The files are saved in the format "ted #0.png" where the number is a sequential count of the number of files generated.
 
+# Set Up
+This is about how you arrange the layer files and what format they should be in.  It assumes each NFT has a base layer (in this case body) with a solid background on top of which are superimnposed a number of other layers (mouth,eyes) which all have transparent backgrounds.  Each individual file is named based on what it contains.  
+
 I might add JSON metadata if anyone wants.
