@@ -110,8 +110,9 @@ namespace MyApp // Note: actual namespace depends on the project name.
                                                 CompositeLayer(fileChunks[5][e], baseImage);
                                                 CompositeLayer(fileChunks[6][f], baseImage);
                                                 CompositeLayer(fileChunks[7][g], baseImage);
-                                                baseImage.Save(Path.Combine(outputFileValue, $"{index}", $"ted #{nftCount++}.png"), ImageFormat.Png);
 
+                                                //save it
+                                                baseImage.Save(Path.Combine(outputFileValue, $"{index}", $"ted #{nftCount++}.png"), ImageFormat.Png);
                                             }
 
 #pragma warning restore CA1416 // Validate platform compatibility
