@@ -20,4 +20,6 @@ In the output folder there is a subfolder for each of the different base layers.
 # Set Up
 This is about how you arrange the layer files and what format they should be in.  It assumes each NFT has a base layer (in this case body) with a solid background on top of which are superimnposed a number of other layers (mouth,eyes) which all have transparent backgrounds.  Each individual file is named based on what it contains.  
 
+![Example file names.](FileNameExamples.png)
+
 I might add JSON metadata if anyone wants.
